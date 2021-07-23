@@ -1,0 +1,39 @@
+.review_block_wrapper {
+    .slick-prev {
+        background: url('../../assets/images/slider_left.svg') !important;
+        left: 2% !important;
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+    }
+    .slick-next {
+        background: url('../../assets/images/slider_right.svg') !important;
+        right: 2% !important;
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+    }
+    .slick-prev,
+    .slick-next {
+        width: 40px !important;
+        height: 40px !important;
+        opacity: .5;
+        z-index: 10;
+        background-repeat: no-repeat !important;
+        &.slick-disabled {
+            display: none !important;
+        }
+        &:hover {
+            opacity: 1;
+        }
+    }
+    .slick-dots {
+        bottom: 3%;
+        li {
+            margin: 0 2px;
+            button {
+                &:before {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,117 @@
+.account_main_content {
+    border-bottom: 1px solid #000000;
+}
+
+.account_bottom_btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .btn_black {
+        width: fit-content !important;
+        margin: 0;
+    }
+}
+
+.change_password {
+    .btn_outline_dark {
+        width: 100%;
+        padding: 15px 0;
+    }
+}
+
+.account_page {
+    .contacts_form {
+        margin-top: 0 !important;
+        input {
+            margin-top: 0;
+        }
+    }
+    .vue-picker {
+        width: 100%;
+        i {
+            width: 10px;
+            height: 8px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url("../../assets/images/arrow_down.svg");
+            transition: all 0.2s ease;
+            &::after {
+                display: none;
+            }
+        }
+        &.vue-picker--open {
+            .vue-picker__opener {
+                .vue-picker__opener-ico {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+        .vue-picker__opener {
+            padding: 14px !important;
+        }
+    }
+    .margin_input {
+        margin: 40px 0;
+        .col-xl-4 {
+            padding: 0 !important;
+        }
+    }
+    .font_600 {
+        font-weight: 600;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .order_2 {
+        order: 2;
+    }
+    .order_1 {
+        order: 1;
+    }
+    .account_page .contacts_form .phone input {
+        margin: 0 15px;
+    }
+    .vue-picker {
+        margin-bottom: 20px;
+    }
+    .inputs {
+        margin-bottom: 20px;
+    }
+    .m_title {
+        margin-bottom: 10px !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .order_2 {
+        order: 2;
+        margin-top: 50px;
+    }
+    .order_1 {
+        order: 1;
+    }
+    .action_content .tab_actions p {
+        margin-bottom: 0;
+    }
+    .btn_gray {
+        width: 100%;
+    }
+    .tab_nav {
+        margin-right: 20px !important;
+        padding-bottom: 0 !important;
+    }
+    .active_tab {
+        border-bottom: transparent !important;
+    }
+    .account_bottom_btn {
+        display: block;
+        text-align: center;
+        p {
+            margin-top: 30px;
+        }
+        .btn_black {
+            margin-top: 30px;
+            width: 100% !important;
+        }
+    }
+}
