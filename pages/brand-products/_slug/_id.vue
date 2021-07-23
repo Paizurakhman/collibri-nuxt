@@ -47,11 +47,6 @@ import { mapGetters, mapActions } from "vuex";
 import {locale} from "~/lang/localeLang";
 
 export default {
-  // metaInfo() {
-  //   return {
-  //     title: "Брэнды" + " | " + "Collibri",
-  //   };
-  // },
   data: () => ({
     brandData: null,
     filter_id: [],
@@ -85,7 +80,7 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     this.CATALOG_FILTER.products = null;
     let productUrl = this.$route.params.id;
     let page = this.$route.query.page;

@@ -98,7 +98,7 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     let localstorageProductsId = JSON.parse(localStorage.getItem("cart_products"));
     let productsId = [];
 

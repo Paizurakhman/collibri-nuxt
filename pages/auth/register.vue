@@ -204,7 +204,7 @@ export default {
     },
   },
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
   }
 };
 </script>

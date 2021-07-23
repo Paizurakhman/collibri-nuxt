@@ -37,9 +37,6 @@
 import {locale} from "~/lang/localeLang";
 
 export default {
-  // metaInfo: {
-  //   title: "О нас",
-  //   titleTemplate: "%s | Collibri",
   // },
   data: () => ({
     aboutData: null,
@@ -58,7 +55,7 @@ export default {
     }
   },
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     this.imgUrl = this.$store.state.imgUrl;
     this.$axios
       .get(`about?lang=${this.lang}`)

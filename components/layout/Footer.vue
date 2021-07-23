@@ -144,7 +144,7 @@ export default {
     },
   },
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     this.$axios
       .get(`get-footer?lang=${this.lang}`)
       .then((response) => (this.footerData = response.data));

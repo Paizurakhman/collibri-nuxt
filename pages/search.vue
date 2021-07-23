@@ -59,7 +59,7 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     let page = this.$route.query.page ? this.$route.query.page : 1;
     let sort = this.$route.query.sort ? this.$route.query.sort : "";
     let localFilterId = JSON.parse(localStorage.getItem("filter_id"));

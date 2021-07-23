@@ -52,7 +52,7 @@ export default {
     }
   },
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     this.$axios
       .get(`best-seller?lang=${this.$store.state.lang}`)
       .then(

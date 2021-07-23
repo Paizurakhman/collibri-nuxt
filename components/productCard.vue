@@ -108,7 +108,7 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     this.inTheCart;
     this.activeFavorite;
     this.imgUrl = this.$store.state.imgUrl;

@@ -56,7 +56,7 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     if (this.$route.query.sort !== undefined) {
       this.sortedCategory = this.$route.query.sort;
     } else {

@@ -191,7 +191,7 @@ export default {
     },
 
     changeLanguage() {
-      this.lang = localStorage.getItem("lang");
+      this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
       this.$store.commit("CHANGE_LANGUAGE");
     },
 
@@ -203,13 +203,13 @@ export default {
       if (this.$cookies.isKey("userToken")) {
         this.$router.push("/my-account");
       } else {
-        this.$router.push("/login");
+        this.$router.push({ name: 'auth-login' });
       }
     },
   },
   mounted() {
     this.cartProductLength = JSON.parse(localStorage.getItem("cart_products"))
-    this.lang = localStorage.getItem("lang");
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     this.$axios
       .get(
         `get-header?lang=${this.$store.state.lang}`

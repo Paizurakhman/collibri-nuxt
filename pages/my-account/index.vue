@@ -397,7 +397,7 @@ export default {
     },
   },
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     const userToken = this.$cookies.get("userToken");
     const userId = this.$cookies.get("userId");
     this.$axios

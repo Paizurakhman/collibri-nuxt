@@ -144,7 +144,7 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     this.loader = this.$store.state.loader;
     this.imgUrl = this.$store.state.imgUrl;
     let productUrl = this.$route.params.id;

@@ -162,7 +162,7 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     let localFilterId = JSON.parse(localStorage.getItem("filter_id"));
     let productUrl = this.$route.params.id;
     if (localFilterId !== null) {

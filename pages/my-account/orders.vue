@@ -5,7 +5,7 @@
         <h3>{{ locale[lang].orders.title }}</h3>
       </div>
     </div>
-    < v-if="" />
+<!--    < v-if="" />-->
     <div v-if="orderData">
       <div class="order_item" v-for="order in orderData.orders" :key="order.id">
         <div class="first_block">

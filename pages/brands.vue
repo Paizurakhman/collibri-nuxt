@@ -96,11 +96,6 @@
 import { mapGetters, mapActions } from "vuex";
 import {locale} from "~/lang/localeLang";
 export default {
-  // metaInfo() {
-  //   return {
-  //     title: this.$store.state.metaTitle + ' | ' + 'Collibri',
-  //   };
-  // },
   data: () => ({
     allBrands: null,
     imgUrl: null,
@@ -128,7 +123,7 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
     this.imgUrl = this.$store.state.imgUrl;
     this.$axios
       .get(
