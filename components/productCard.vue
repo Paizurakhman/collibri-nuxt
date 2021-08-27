@@ -20,6 +20,7 @@
           {{ productCard.title }}
         </p>
       </div>
+      <p class="short_desc">{{ productCard.short_description }}</p>
     </nuxt-link>
     <div class="product_card_footer">
       <div class="card_price">

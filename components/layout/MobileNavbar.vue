@@ -23,12 +23,11 @@
             v-for="(link, index) in searchData.data"
             :key="index"
             @click="
-              (searchValue = ''); (searchData = false); productUrl(link.slug);
-            "
+              (searchValue = ''); (searchData = false);"
           >
             <nuxt-link
               :to="{
-                name: 'product',
+                name: 'product-id',
                 params: { id: link.slug },
               }"
               >{{ link.title }}</nuxt-link

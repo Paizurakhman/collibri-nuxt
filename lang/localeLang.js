@@ -32,7 +32,8 @@ let locale = {
             proceed: 'Продолжить',
             saved: 'Сохранить',
             edit: 'Изменить',
-            goOut: 'Выйти'
+            goOut: 'Выйти',
+            back: 'Назад'
         },
         sortBy: {
             title: 'Сортировать по',
@@ -182,7 +183,8 @@ let locale = {
             proceed: 'Proceed',
             saved: 'Save',
             edit: 'Edit',
-            goOut: 'Go out'
+            goOut: 'Go out',
+            back: 'Back'
         },
         sortBy: {
             title: 'Sort by',

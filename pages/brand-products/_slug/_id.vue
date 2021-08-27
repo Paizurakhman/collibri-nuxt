@@ -1,13 +1,13 @@
 <template>
   <div class="catalog_wrapper p_page">
-    <div class="_wrapper" v-if="$store.state.loader">
-      <div id="cube-">
+    <div class="loader_wrapper" v-if="$store.state.loader">
+      <div id="cube-loader">
         <div class="caption">
-          <div class="cube-">
-            <div class="cube -1"></div>
-            <div class="cube -2"></div>
-            <div class="cube -4"></div>
-            <div class="cube -3"></div>
+          <div class="cube-loader">
+            <div class="cube loader1"></div>
+            <div class="cube loader-2"></div>
+            <div class="cube loader-4"></div>
+            <div class="cube loader-3"></div>
           </div>
         </div>
       </div>
@@ -52,8 +52,21 @@ export default {
     filter_id: [],
     productCategory: null,
     locale: locale,
-    lang: "ru"
+    lang: "ru",
+    meta_title: null,
+    meta_description: null
   }),
+
+  head() {
+    return {
+      title: this.meta_title,
+      meta: [
+        {
+          content: this.meta_description
+        }
+      ]
+    }
+  },
 
   methods: {
     ...mapActions([
@@ -86,6 +99,11 @@ export default {
     let page = this.$route.query.page;
     this.GET_BRAND_PRODUCTS({ id: productUrl, page: page });
     this.brandData = this.BRAND_PRODUCTS;
+
+    setTimeout(() => {
+      this.meta_title = this.BRAND_PRODUCTS.brand.title + " | Collibri"
+    },200)
+
   },
 };
 </script>

@@ -24,7 +24,7 @@ export const mutations = {
     state.catalogData = products;
   },
 
-  PRODUCT_ITEM(state, product) {
+  SET_PRODUCT_ITEM(state, product) {
     state.productItem = product;
   },
 
@@ -184,7 +184,7 @@ export const actions = {
   GET_BRAND_PRODUCTS({ commit, state }, { id, page }) {
     state.loader = true
     this.$axios
-      .get(`}get-brand-products`, {
+      .get(`get-brand-products`, {
         params: {
           lang: state.lang,
           brand_id: id,
@@ -307,7 +307,7 @@ export const actions = {
         setTimeout(() => {
           state.loader = false
         }, 100);
-        commit('PRODUCT_ITEM', product)
+        commit('SET_PRODUCT_ITEM', product)
       });
   },
 

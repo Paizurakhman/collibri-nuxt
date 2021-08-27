@@ -3,16 +3,25 @@ export default {
   head: {
     title: 'collibri',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: ''},
+      {name: 'format-detection', content: 'telephone=no'},
+      // {name: "apple-mobile-web-app-capable", content: "yes"},
+      // {name: "apple-mobile-web-app-status-bar-style", content: "black"},
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons'},
-      { rel: "stylesheet", href: "https://pro.fontawesome.com/releases/v5.10.0/css/all.css" }
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+      {rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css'},
+      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons'},
+      {rel: "stylesheet", href: "https://pro.fontawesome.com/releases/v5.10.0/css/all.css"},
+
+      // {rel: "apple-touch-icon", sizes: "114x114", href: "apple-icon-114x114.png"},
+      // {rel: "apple-touch-icon", sizes: "120x120", href: "apple-icon-120x120.png"},
+      // {rel: "apple-touch-icon", sizes: "144x144", href: "apple-icon-144x144.png"},
+      // {rel: "apple-touch-icon", sizes: "152x152", href: "apple-icon-152x152.png"},
+      // {rel: "apple-touch-icon", sizes: "180x180", href: "apple-icon-180x180.png"},
+      // {rel: "apple-touch-icon", href: "icon.png"},
     ]
   },
 
@@ -26,15 +35,15 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/paginate', mode: 'client' },
-    { src: '~/plugins/vue-slick-carousel', mode: 'client' },
-    { src: '~/plugins/vue-yandex-share', mode: 'client' },
+    {src: '~/plugins/paginate', mode: 'client'},
+    {src: '~/plugins/vue-slick-carousel', mode: 'client'},
+    {src: '~/plugins/vue-yandex-share', mode: 'client'},
     // { src: '~/plugins/vue-picker', mode: 'client' },
-    { src: '~/plugins/skeleton-loader', mode: 'client' },
-    { src: '~/plugins/v-lazy-image', mode: 'client' },
-    { src: '~/plugins/vue-cookies', mode: 'client' },
-    { src: '~/plugins/vue-validate', mode: 'client' },
-    { src: '~/plugins/vue-mask', mode: 'client' },
+    {src: '~/plugins/skeleton-loader', mode: 'client'},
+    {src: '~/plugins/v-lazy-image', mode: 'client'},
+    {src: '~/plugins/vue-cookies', mode: 'client'},
+    {src: '~/plugins/vue-validate', mode: 'client'},
+    {src: '~/plugins/vue-mask', mode: 'client'},
     '~/plugins/vue-directive'
   ],
 
@@ -42,8 +51,7 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-  ],
+  buildModules: [],
 
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -67,12 +75,23 @@ export default {
   },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
-    manifest: {
-      lang: 'en'
-    }
+    // meta: {
+    //   title: "Collibri",
+    //   author: "Collibri",
+    // },
+    // manifest: {
+    //   lang: 'en',
+    //   name: "Collibri",
+    //   mobileAppIOS: true,
+    //   appleStatusBarStyle: true
+    // },
+    // icon: {
+    //   // source: '~/static/icon.png',
+    //   fileName: 'icon.png',
+    //   sizes: [64, 120, 144, 152, 192, 384, 512]
+    // }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
+  build: {}
 }

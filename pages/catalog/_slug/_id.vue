@@ -1,13 +1,13 @@
 <template>
   <div class="catalog_wrapper p_page">
-        <div class="_wrapper" v-if="$store.state.loader">
+        <div class="loader_wrapper" v-if="$store.state.loader">
           <div id="cube-loader">
             <div class="caption">
-              <div class="cube-">
-                <div class="cube -1"></div>
-                <div class="cube -2"></div>
-                <div class="cube -4"></div>
-                <div class="cube -3"></div>
+              <div class="cube-loader">
+                <div class="cube loader-1"></div>
+                <div class="cube loader-2"></div>
+                <div class="cube loader-4"></div>
+                <div class="cube loader-3"></div>
               </div>
             </div>
           </div>
@@ -154,6 +154,12 @@ export default {
       page: page,
       sort: this.$route.query.sort,
     });
+
+    setTimeout(() => {
+      this.meta_title = (this.CATALOG_FILTER.page_meta.title !==null? this.CATALOG_FILTER.page_meta.title.meta_title + " | Collibri": (this.lang === "en"? 'Catalog | Collibri': 'Каталог | Collibri'))
+      this.meta_description = this.CATALOG_FILTER.page_meta.description !== null? this.CATALOG_FILTER.page_meta.description.meta_description: (this.lang === "en"? 'Online Shop - Collibri':'Интернет магазин - Collibri')
+    }, 500)
+
     // console.log(this.CATEGORY_PRODUCTS)
     // this.meta_title = (this.CATEGORY_PRODUCTS.page_meta.title.meta_title !==null? this.CATEGORY_PRODUCTS.page_meta.title.meta_title + " | Collibri": (this.lang === "en"? 'Blogs | Collibri': 'Блоги | Collibri'))
     // this.meta_description = response.data.page_meta.meta_description !== null? response.data.page_meta.meta_description: (this.lang === "en"? 'Online Shop - Collibri':'Интернет магазин - Collibri')

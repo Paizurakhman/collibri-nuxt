@@ -1,6 +1,6 @@
 <template>
   <div class="page_product_wrapper p_page">
-    <pre>{{ activeFavorite }}</pre>
+<!--    <pre>{{ activeFavorite }}</pre>-->
     <div class="loader_wrapper" v-if="$store.state.loader">
       <div id="cube-loader">
         <div class="caption">
@@ -14,6 +14,11 @@
       </div>
     </div>
     <div class="container" v-else>
+      <div class="back_link d_none">
+        <a href="#" class="silver_text" @click.prevent="$router.go(-1)"
+        ><img src="@/assets/images/BACK.svg" alt="" /> {{locale[lang].buttons.back}}</a
+        >
+      </div>
       <div v-if="PRODUCT_ITEM">
         <div class="nav_page">
           <div class="breadcrumbs">
@@ -351,6 +356,8 @@ export default {
     favoriteActive: false,
     favoriteList: null,
     cartProductsList: null,
+    meta_title: null,
+    meta_description: null,
     settingsRecomendSlider: {
       arrows: true,
       dots: false,
@@ -404,6 +411,17 @@ export default {
       pleaseTickRecaptchaMessage: "",
     },
   }),
+
+  head() {
+    return {
+      title: this.meta_title,
+      meta: [
+        {
+          content: this.meta_description
+        }
+      ]
+    }
+  },
 
   validations: {
     name: {
@@ -569,7 +587,13 @@ export default {
         vm.modal = false;
       }
     });
-  },
+
+    setTimeout(() => {
+      this.meta_title = (this.PRODUCT_ITEM.product.meta_title !==null? this.PRODUCT_ITEM.product.meta_title + " | Collibri": this.PRODUCT_ITEM.product.title)
+      this.meta_description = this.PRODUCT_ITEM.page_meta.meta_description !== null? this.PRODUCT_ITEM.page_meta.meta_description: (this.lang === "en"? 'Online Shop - Collibri':'Интернет магазин - Collibri')
+    }, 200)
+
+  }
 
 };
 </script>

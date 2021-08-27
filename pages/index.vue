@@ -14,7 +14,7 @@
     </div>
     <div v-else>
       <div class="main_slider">
-        <slick-carousel :arrows="true" :dots="true">
+        <slick-carousel v-bind="setting">
           <div
             v-for="(item, index) in mainData.slider"
             :key="index"
@@ -247,7 +247,13 @@ export default {
     loader: true,
     locale: locale,
     title: null,
-    meta_description: null
+    meta_description: null,
+    setting: {
+      arrows: true,
+      dots: true,
+      autoplay: true,
+      autoplaySpeed: 3000
+    }
   }),
 
   head () {
