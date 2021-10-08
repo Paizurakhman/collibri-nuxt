@@ -14,24 +14,26 @@
     </div>
     <div v-else>
       <div class="main_slider">
-        <slick-carousel v-bind="setting">
-          <div
-            v-for="(item, index) in mainData.slider"
-            :key="index"
-            :style="{ 'background-image': `url(${imgUrl + item.image})` }"
-            class="slider_item"
-          >
-            <div class="container h-100 slider_text_wrapper">
-              <div class="slider_text col-lg-6">
-                <h2 v-if="item.title">{{ item.title }}</h2>
-                <p v-if="item.content">{{ item.content }}</p>
-                <a :href="item.url" class="btn btn_outline" v-if="item.url">{{
+        <client-only>
+          <slick-carousel v-bind="setting">
+            <div
+              v-for="(item, index) in mainData.slider"
+              :key="index"
+              :style="{ 'background-image': `url(${imgUrl + item.image})` }"
+              class="slider_item"
+            >
+              <div class="container h-100 slider_text_wrapper">
+                <div class="slider_text col-lg-6">
+                  <h2 v-if="item.title">{{ item.title }}</h2>
+                  <p v-if="item.content">{{ item.content }}</p>
+                  <a :href="item.url" class="btn btn_outline" v-if="item.url">{{
                     locale[lang].buttons.btnMoreDetails
                   }}</a>
+                </div>
               </div>
             </div>
-          </div>
-        </slick-carousel>
+          </slick-carousel>
+        </client-only>
       </div>
 
       <div class="products_category">
@@ -103,18 +105,14 @@
               </div>
             </div>
             <nuxt-link to="/new" class="btn btn_black">{{
-                locale[lang].buttons.btnSeeAll
-              }}</nuxt-link>
+              locale[lang].buttons.btnSeeAll
+            }}</nuxt-link>
           </div>
         </div>
       </div>
 
-      <div class="review_block_wrapper">
-        <slick-carousel
-          :arrows="true"
-          :infinite="false"
-          :adaptiveHeight="true"
-        >
+      <div class="review_block_wrapper" v-if="mainData.block_sales.lenght">
+        <slick-carousel :arrows="true" :infinite="false" :adaptiveHeight="true">
           <div
             class="review_block p_block"
             v-for="(sale, index) in mainData.block_sales"
@@ -140,7 +138,7 @@
                     :href="sale.url"
                     target="blank"
                     class="btn btn_outline"
-                  >{{ locale[lang].buttons.btnMoreDetails }}</a
+                    >{{ locale[lang].buttons.btnMoreDetails }}</a
                   >
                   <nuxt-link
                     v-else
@@ -181,8 +179,8 @@
               </div>
             </div>
             <nuxt-link to="/best-products" class="btn btn_black">{{
-                locale[lang].buttons.btnSeeAll
-              }}</nuxt-link>
+              locale[lang].buttons.btnSeeAll
+            }}</nuxt-link>
           </div>
         </div>
       </div>
@@ -198,7 +196,7 @@
                 <div class="blog_title">
                   <h2>{{ mainData.block_blog.title }}</h2>
                 </div>
-                <div class="main_blog_text" >
+                <div class="main_blog_text">
                   <p>
                     {{ mainData.block_blog.content | truncate }}
                   </p>
@@ -212,7 +210,7 @@
                     name: 'blogs-id',
                     params: { id: mainData.block_blog.slug },
                   }"
-                >{{ locale[lang].buttons.btnMoreDetails }}</nuxt-link
+                  >{{ locale[lang].buttons.btnMoreDetails }}</nuxt-link
                 >
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 m_none">
@@ -235,13 +233,12 @@
 </template>
 
 <script>
-
-import {locale} from "~/lang/localeLang";
+import { locale } from "~/lang/localeLang";
 
 export default {
   data: () => ({
     mainData: null,
-    lang: 'ru',
+    lang: "ru",
     imgUrl: null,
     count: null,
     loader: true,
@@ -252,32 +249,43 @@ export default {
       arrows: true,
       dots: true,
       autoplay: true,
-      autoplaySpeed: 3000
-    }
+      autoplaySpeed: 3000,
+    },
   }),
 
-  head () {
+  head() {
     return {
       title: this.title,
       meta: [
         {
-          content: this.meta_description
-        }
-      ]
-    }
+          content: this.meta_description,
+        },
+      ],
+    };
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
+    this.lang =
+      localStorage.getItem("lang") !== null
+        ? localStorage.getItem("lang")
+        : "ru";
     this.imgUrl = this.$store.state.imgUrl;
-    this.$axios.get(`home-page?lang=` + this.lang)
-      .then((response) => {
-          this.mainData = response.data
-          this.loader = false
-          this.title = (response.data.page_meta.meta_title !==null? response.data.page_meta.meta_title + " | Collibri": (this.lang === "en"? 'Main | Collibri': 'Главная | Collibri'))
-          this.meta_description = response.data.page_meta.meta_description !== null? response.data.page_meta.meta_description: (this.lang === "en"? 'Online Shop - Collibri':'Интернет магазин - Collibri')
-        }
-      );
+    this.$axios.get(`home-page?lang=` + this.lang).then((response) => {
+      this.mainData = response.data;
+      this.title =
+        response.data.page_meta.meta_title !== null
+          ? response.data.page_meta.meta_title + " | Collibri"
+          : this.lang === "en"
+          ? "Main | Collibri"
+          : "Главная | Collibri";
+      this.meta_description =
+        response.data.page_meta.meta_description !== null
+          ? response.data.page_meta.meta_description
+          : this.lang === "en"
+          ? "Online Shop - Collibri"
+          : "Интернет магазин - Collibri";
+      this.loader = false;
+    });
   },
 };
 </script>

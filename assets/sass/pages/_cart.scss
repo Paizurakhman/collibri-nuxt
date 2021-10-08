@@ -72,6 +72,7 @@
     .price {
         width: 40%;
         text-align: right;
+        flex-wrap: wrap;
         .bold_text {
             text-transform: uppercase;
             margin-bottom: 0;

@@ -60,13 +60,13 @@
                 ref="form"
                 action=""
                 @submit.prevent="submit"
-                :class="{ 'form-group--error': ($v.name.$error )}"
+                :class="{ 'form-group--error': $v.name.$error }"
               >
                 <input
                   type="text"
                   :placeholder="locale[lang].placeholders.name"
                   v-model.trim="name"
-                  :class="{ invalid: ($v.name.$dirty && !$v.name.required) }"
+                  :class="{ invalid: $v.name.$dirty && !$v.name.required }"
                 />
                 <span v-if="$v.name.$error" class="error">{{
                   locale[lang].placeholders.name
@@ -111,7 +111,7 @@
                   rows="10"
                   :placeholder="locale[lang].placeholders.comment"
                 ></textarea>
-                <recaptcha @success="markRecaptchaAsVerified"/>
+                <recaptcha @success="markRecaptchaAsVerified" />
                 <span class="error mb-4 d-block">{{
                   loginForm.pleaseTickRecaptchaMessage
                 }}</span>
@@ -128,40 +128,42 @@
 </template>
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
-import {locale} from "~/lang/localeLang";
+import { locale } from "~/lang/localeLang";
 export default {
-  data () {
+  data() {
     return {
       contactsData: null,
       errors: [],
-      name: '',
+      name: "",
       phone: "",
       email: "",
       comment: "",
       company: "",
       submitStatus: null,
       locale: locale,
-      lang: 'ru',
+      lang: "ru",
       meta_title: null,
       meta_description: null,
       loginForm: {
         recaptchaVerified: false,
         pleaseTickRecaptchaMessage: "",
       },
-    }
+    };
   },
-  head () {
+  head() {
     return {
       title: this.meta_title,
       meta: [
         {
-          content: this.meta_description
-        }
+          content: this.meta_description,
+        },
       ],
       script: [
-        { src: "//api-maps.yandex.ru/services/constructor/1.0/js/?sid=Ou9B29AnlSf6RNKeZk-xqFBsw7nQtEIu&amp;width=100%&amp;height=400&amp;lang=ru_RU&amp;sourceType=constructor&amp;scroll=true&amp;id=my-map" }
-      ]
-    }
+        {
+          src: "//api-maps.yandex.ru/services/constructor/1.0/js/?sid=Ou9B29AnlSf6RNKeZk-xqFBsw7nQtEIu&amp;width=100%&amp;height=400&amp;lang=ru_RU&amp;sourceType=constructor&amp;scroll=true&amp;id=my-map",
+        },
+      ],
+    };
   },
 
   methods: {
@@ -184,17 +186,15 @@ export default {
 
       if (this.$v.$invalid) {
         return false;
-      }
-      else if (!this.loginForm.recaptchaVerified) {
+      } else if (!this.loginForm.recaptchaVerified) {
         this.loginForm.pleaseTickRecaptchaMessage =
           "Подтвердите что вы не робот!";
-      }
-      else {
+      } else {
         this.loginForm.pleaseTickRecaptchaMessage = "";
-        this.submitStatus = "PENDING"
+        this.submitStatus = "PENDING";
         try {
-          const token = this.$recaptcha.getResponse()
-          console.log('ReCaptcha token:', token)
+          const token = this.$recaptcha.getResponse();
+          console.log("ReCaptcha token:", token);
 
           this.$axios
             .post(`callback`, {
@@ -213,29 +213,38 @@ export default {
                   this.countValue = "";
                   this.company = "";
                   this.$v.$reset();
-                  this.$recaptcha.reset()
+                  this.$recaptcha.reset();
                   this.loginForm.recaptchaVerified = false;
                 }
               }, 2000);
             });
         } catch (error) {
-          console.log('Login error:', error)
+          console.log("Login error:", error);
         }
       }
     },
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
-    this.$axios
-      .get(
-        `get-contacts?lang=${this.lang}`
-      )
-      .then((response) => {
-        this.contactsData = response.data;
-        this.meta_title = (response.data.page_meta.meta_title !==null? response.data.page_meta.meta_title + " | Collibri": (this.lang === "en"? 'Contacts | Collibri': 'Контакты | Collibri'))
-        this.meta_description = response.data.page_meta.meta_description !== null? response.data.page_meta.meta_description: (this.lang === "en"? 'Online Shop - Collibri':'Интернет магазин - Collibri')
-      });
+    this.lang =
+      localStorage.getItem("lang") !== null
+        ? localStorage.getItem("lang")
+        : "ru";
+    this.$axios.get(`get-contacts?lang=${this.lang}`).then((response) => {
+      this.contactsData = response.data;
+      this.meta_title =
+        response.data.page_meta.meta_title !== null
+          ? response.data.page_meta.meta_title + " | Collibri"
+          : this.lang === "en"
+          ? "Contacts | Collibri"
+          : "Контакты | Collibri";
+      this.meta_description =
+        response.data.page_meta.meta_description !== null
+          ? response.data.page_meta.meta_description
+          : this.lang === "en"
+          ? "Online Shop - Collibri"
+          : "Интернет магазин - Collibri";
+    });
   },
   validations: {
     name: {
@@ -256,4 +265,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.lang {
+  color: #90a4ae;
+}
+</style>

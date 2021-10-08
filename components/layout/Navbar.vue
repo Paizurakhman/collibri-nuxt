@@ -94,37 +94,44 @@
 </template>
 
 <script>
-import {locale} from "~/lang/localeLang";
+import { locale } from "~/lang/localeLang";
 
 export default {
   props: ["categories"],
   data: () => ({
     navDropdown: false,
     locale: locale,
-    lang: 'ru'
+    lang: "ru",
   }),
 
   methods: {
     catalogDropdown() {
-      this.$store.commit("CATALOG_DROPDOWN");
+      this.navDropdown = !this.navDropdown;
+      this.$store.commit("CATALOG_DROPDOWN", this.navDropdown);
     },
     closeDropdown(slug) {
       localStorage.removeItem("filter_id");
       let routeSlug = this.$route.params.slug;
       if (routeSlug === slug) {
-        this.$store.state.catalogDropdown = false;
+        this.navDropdown = false;
+        this.$store.commit("CATALOG_DROPDOWN", false);
       }
     },
   },
 
   watch: {
     $route(to, from) {
-      this.$store.state.catalogDropdown = false;
+      this.navDropdown = false;
+      this.$store.commit("CATALOG_DROPDOWN", false);
+      // this.$store.state.catalogDropdown = false;
     },
   },
   mounted() {
-    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
-  }
+    this.lang =
+      localStorage.getItem("lang") !== null
+        ? localStorage.getItem("lang")
+        : "ru";
+  },
 };
 </script>
 

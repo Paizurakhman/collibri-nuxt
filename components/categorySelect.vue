@@ -43,6 +43,24 @@
       v-if="allFilter()"
     >
       <span class="close_btn" alt=""></span>
+      <div>
+        <div class="category_select">
+          <p class="bold_text">Категории</p>
+          <ul>
+            <li v-for="item in sub_categories" :key="item.id">
+              <label class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  :value="Number(item.id)"
+                  v-model="sub_category"
+                  @change="addFilter"
+                />
+                <span>{{ item.title }}</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div v-for="item in allFilter().slice(0, categoryCount)" :key="item.id">
         <div class="category_select">
           <p class="bold_text">
@@ -75,18 +93,19 @@
 
 <script>
 import { mapActions } from "vuex";
-import {locale} from "~/lang/localeLang";
+import { locale } from "~/lang/localeLang";
 
 export default {
-  props: ["categories", "type"],
+  props: ["categories", "type", "sub_categories"],
   data: () => ({
     productCategory: null,
     categoryCount: 3,
     filter_id: [],
+    sub_category: [],
     allFilterItems: [],
     mobileFilter: false,
     locale: locale,
-    lang: 'ru'
+    lang: "ru",
   }),
   methods: {
     ...mapActions([
@@ -114,9 +133,9 @@ export default {
 
     addFilter() {
       if (this.$route.query?.sort) {
-        this.$router.push({query: { page: 1, sort: this.$route.query.sort }})
+        this.$router.push({ query: { page: 1, sort: this.$route.query.sort } });
       } else {
-        this.$router.push({query: { page: 1 }})
+        this.$router.push({ query: { page: 1 } });
       }
 
       localStorage.setItem("filter_id", JSON.stringify(this.filter_id));
@@ -127,6 +146,7 @@ export default {
           productId: productUrl,
           filterId: allFilterId,
           sort: this.$route.query?.sort,
+          sub_category: this.sub_category,
           page: 1,
         });
       } else if (this.type === "brand_id") {
@@ -162,7 +182,10 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
+    this.lang =
+      localStorage.getItem("lang") !== null
+        ? localStorage.getItem("lang")
+        : "ru";
     let localFilterId = JSON.parse(localStorage.getItem("filter_id"));
     let productUrl = this.$route.params.id;
     if (localFilterId !== null) {

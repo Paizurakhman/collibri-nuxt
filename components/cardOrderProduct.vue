@@ -17,8 +17,25 @@
           <p class="bold_text">
             {{ productCard.title }}
           </p>
-          <div class="price m_none">
-            <p class="bold_text" v-if="productCard.count > 1">{{ productCard.count }} <span>*</span></p>
+          <div class="price m_none" v-if="promo" style="flex-wrap: wrap">
+            <p class="bold_text" v-if="productCard.count > 1">
+              {{ productCard.count }} <span>*</span>
+            </p>
+            <p class="bold_text">
+              {{
+                productCard.old_price -
+                (productCard.old_price * promo.sale) / 100
+              }}
+              kzt
+            </p>
+            <p class="percent_price" style="flex: 1 100%">
+              {{ productCard.old_price }} kzt
+            </p>
+          </div>
+          <div class="price m_none" v-else>
+            <p class="bold_text" v-if="productCard.count > 1">
+              {{ productCard.count }} <span>*</span>
+            </p>
             <p class="bold_text">{{ productCard.price }} kzt</p>
           </div>
         </div>
@@ -35,7 +52,7 @@
 
 <script>
 export default {
-  props: ["productCard"],
+  props: ["productCard", "promo"],
 
   methods: {},
 };

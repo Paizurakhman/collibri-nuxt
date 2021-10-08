@@ -77,8 +77,8 @@
                       :placeholder="locale[lang].placeholders.instagram"
                       v-model.trim="instagram"
                       :class="{
-                        invalid:
-                          ($v.instagram.$dirty && !$v.instagram.required)}"
+                        invalid: $v.instagram.$dirty && !$v.instagram.required,
+                      }"
                     />
                     <span
                       v-if="$v.instagram.$dirty && $v.instagram.$error"
@@ -158,9 +158,7 @@
                           cols="30"
                           rows="10"
                           v-model="comment"
-                          :placeholder="
-                            locale[lang].orderingPage.commentsOrder
-                          "
+                          :placeholder="locale[lang].orderingPage.commentsOrder"
                         ></textarea>
                       </div>
                     </div>
@@ -169,7 +167,7 @@
                 <button
                   type="button"
                   class="btn btn_black mt-5 m-0 m_none"
-                  :class="{disabled: cartData === null}"
+                  :class="{ disabled: cartData === null }"
                   @click="submit"
                 >
                   {{ locale[lang].buttons.proceedToCheckout }}
@@ -188,8 +186,10 @@
                   :key="card.id"
                   :productCard="card"
                   @deleteProduct="deleteProduct(index, card.id)"
+                  :promo="promocode"
                 />
               </div>
+              <promocode @code="promocode = $event" />
               <div class="delivery_info">
                 <p v-if="totalPrice < 45000" class="red_text">
                   {{ locale[lang].deliveryText.delivery }}: 1000 KZT
@@ -216,7 +216,7 @@
             <button
               type="button"
               class="btn btn_black mt-5 m-auto"
-              :class="{disabled: cartData === null}"
+              :class="{ disabled: cartData === null }"
               @click="submit"
             >
               {{ locale[lang].buttons.proceedToCheckout }}
@@ -230,10 +230,9 @@
 
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
-import {locale} from "~/lang/localeLang";
+import { locale } from "~/lang/localeLang";
 
 export default {
-  components: {  },
   data: () => ({
     cartData: null,
     name: "",
@@ -250,21 +249,25 @@ export default {
     loader: false,
     loadingPoints: "",
     locale: locale,
-    lang: 'ru'
+    lang: "ru",
+    promocode: null,
   }),
 
-  head () {
+  head() {
     return {
-      title: this.lang === "en"? 'Checkout | Collibri': 'Оформление заказа | Collibri',
+      title:
+        this.lang === "en"
+          ? "Checkout | Collibri"
+          : "Оформление заказа | Collibri",
       // meta: [
       //   {
       //     content: this.meta_description
       //   }
       // ]
       script: [
-        {src: "https://widget.cloudpayments.ru/bundles/cloudpayments"}
-      ]
-    }
+        { src: "https://widget.cloudpayments.ru/bundles/cloudpayments" },
+      ],
+    };
   },
 
   validations: {
@@ -322,9 +325,9 @@ export default {
         phone: this.phone,
         email: this.email,
         token: this.$cookies.get("userToken"),
-        instagram: this.instagram
+        instagram: this.instagram,
       };
-
+      let code = this.promocode?.code;
       let products = JSON.parse(localStorage.getItem("productsData"));
 
       this.$v.$touch();
@@ -338,46 +341,54 @@ export default {
             address,
             main_info,
             products,
+            code,
           })
           .then((response) => {
-            let tPrice = this.totalPrice < 45000? this.totalPrice + 1000: this.totalPrice
+            let tPrice =
+              this.totalPrice < 45000
+                ? this.totalPrice + 1000
+                : this.totalPrice;
             let order_id = response.data.order_id;
-            let vm = this
-            localStorage.setItem("order-id", order_id)
+            let vm = this;
+            localStorage.setItem("order-id", order_id);
             this.loader = false;
             var widget = new cp.CloudPayments();
-            widget.pay('charge', // или 'charge'
-              { //options
-                publicId: 'pk_c7c0d7ae2c0a26ff75f9395a37c65', //id из личного кабинета
-                description: 'Оплата товаров в collibri.kz', //назначение
+            widget.pay(
+              "charge", // или 'charge'
+              {
+                //options
+                publicId: "pk_c7c0d7ae2c0a26ff75f9395a37c65", //id из личного кабинета
+                description: "Оплата товаров в collibri.kz", //назначение
                 amount: tPrice, //сумма
-                currency: 'KZT', //валюта
+                currency: "KZT", //валюта
                 accountId: this.email, //идентификатор плательщика (необязательно)
                 invoiceId: localStorage.getItem("order-id"), //номер заказа  (необязательно)
                 skin: "modern", //дизайн виджета (необязательно)
-
               },
               {
-                onSuccess: function (options) { // success
+                onSuccess: function (options) {
+                  // success
                   //действие при успешной оплате
                   localStorage.removeItem("cart_products");
                   localStorage.removeItem("order-id");
-                  vm.$router.push('/')
+                  vm.$router.push("/");
                   // console.log(options);
                   setTimeout(() => {
-                    location.reload()
-                  }, 500)
+                    location.reload();
+                  }, 500);
                 },
-                onFail: function (reason, options) { // fail
+                onFail: function (reason, options) {
+                  // fail
                   //действие при неуспешной оплате
                   console.log(reason, options);
                 },
-                onComplete: function (paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
+                onComplete: function (paymentResult, options) {
+                  //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
                   //например вызов вашей аналитики Facebook Pixel
                   console.log(paymentResult, options);
-                }
+                },
               }
-            )
+            );
           })
           .catch((error) => {
             this.loader = false;
@@ -389,46 +400,54 @@ export default {
             address,
             main_info,
             products,
+            code,
           })
           .then((response) => {
-            let tPrice = this.totalPrice < 45000? this.totalPrice + 1000: this.totalPrice
+            let tPrice =
+              this.totalPrice < 45000
+                ? this.totalPrice + 1000
+                : this.totalPrice;
             let order_id = response.data.order_id;
-            let vm = this
-            localStorage.setItem("order-id", order_id)
+            let vm = this;
+            localStorage.setItem("order-id", order_id);
             this.loader = false;
             var widget = new cp.CloudPayments();
-            widget.pay('charge', // или 'charge'
-              { //options
-                publicId: 'pk_c7c0d7ae2c0a26ff75f9395a37c65', //id из личного кабинета
-                description: 'Оплата товаров в collibri.kz', //назначение
+            widget.pay(
+              "charge", // или 'charge'
+              {
+                //options
+                publicId: "pk_c7c0d7ae2c0a26ff75f9395a37c65", //id из личного кабинета
+                description: "Оплата товаров в collibri.kz", //назначение
                 amount: tPrice, //сумма
-                currency: 'KZT', //валюта
+                currency: "KZT", //валюта
                 accountId: this.email, //идентификатор плательщика (необязательно)
                 invoiceId: localStorage.getItem("order-id"), //номер заказа  (необязательно)
                 skin: "modern", //дизайн виджета (необязательно)
-
               },
               {
-                onSuccess: function (options) { // success
+                onSuccess: function (options) {
+                  // success
                   //действие при успешной оплате
                   localStorage.removeItem("cart_products");
                   localStorage.removeItem("order-id");
-                  vm.$router.push('/')
+                  vm.$router.push("/");
                   // console.log(options);
                   setTimeout(() => {
-                    location.reload()
-                  }, 500)
+                    location.reload();
+                  }, 500);
                 },
-                onFail: function (reason, options) { // fail
+                onFail: function (reason, options) {
+                  // fail
                   //действие при неуспешной оплате
                   console.log(reason, options);
                 },
-                onComplete: function (paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
+                onComplete: function (paymentResult, options) {
+                  //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
                   //например вызов вашей аналитики Facebook Pixel
                   console.log(paymentResult, options);
-                }
+                },
               }
-            )
+            );
           })
           .catch((error) => {
             this.loader = false;
@@ -444,7 +463,13 @@ export default {
         for (let i of JSON.parse(localStorage.getItem("productsData"))) {
           if (item.id === i.id) {
             this.$set(item, "count", i.count);
-            result.push(item.price * i.count);
+            this.promocode?.code
+              ? result.push(
+                  (item.old_price -
+                    (item.old_price * this.promocode?.sale) / 100) *
+                    i.count
+                )
+              : result.push(item.price * i.count);
           }
         }
       });
@@ -458,7 +483,10 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
+    this.lang =
+      localStorage.getItem("lang") !== null
+        ? localStorage.getItem("lang")
+        : "ru";
     let localstorageProductsId = JSON.parse(
       localStorage.getItem("cart_products")
     );

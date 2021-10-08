@@ -18,35 +18,41 @@
             <div class="col-xl-8 col-lg-9 col-md-9 mobile_footer">
               <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-4">
-                  <p class="footer_links_title">{{ locale[lang].footerCategories.information }}</p>
+                  <p class="footer_links_title">
+                    {{ locale[lang].footerCategories.information }}
+                  </p>
                   <ul>
                     <li>
-                      <nuxt-link to="/" class="logo">{{ locale[lang].navLang.main }}</nuxt-link>
+                      <nuxt-link to="/" class="logo">{{
+                        locale[lang].navLang.main
+                      }}</nuxt-link>
                     </li>
                     <li>
-                      <nuxt-link to="/brands" data-hover="Бренды"
-                        >{{ locale[lang].navLang.Brands }}</nuxt-link
-                      >
+                      <nuxt-link to="/brands" data-hover="Бренды">{{
+                        locale[lang].navLang.Brands
+                      }}</nuxt-link>
                     </li>
                     <li>
-                      <nuxt-link to="/about" data-hover="О компании"
-                        >{{ locale[lang].navLang.aboutCompany }}</nuxt-link
-                      >
+                      <nuxt-link to="/about" data-hover="О компании">{{
+                        locale[lang].navLang.aboutCompany
+                      }}</nuxt-link>
                     </li>
                     <li>
-                      <nuxt-link to="/blogs" data-hover="Блог"
-                        >{{ locale[lang].navLang.blog }}</nuxt-link
-                      >
+                      <nuxt-link to="/blogs" data-hover="Блог">{{
+                        locale[lang].navLang.blog
+                      }}</nuxt-link>
                     </li>
                     <li>
-                      <nuxt-link to="/contacts" data-hover="Контакты"
-                        >{{ locale[lang].navLang.contacts }}</nuxt-link
-                      >
+                      <nuxt-link to="/contacts" data-hover="Контакты">{{
+                        locale[lang].navLang.contacts
+                      }}</nuxt-link>
                     </li>
                   </ul>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4">
-                  <p class="footer_links_title">{{ locale[lang].footerCategories.products }}</p>
+                  <p class="footer_links_title">
+                    {{ locale[lang].footerCategories.products }}
+                  </p>
                   <ul v-if="footerData">
                     <li
                       v-for="link in footerData.categories"
@@ -65,7 +71,9 @@
                   </ul>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4">
-                  <p class="footer_links_title">{{ locale[lang].footerCategories.contacts }}</p>
+                  <p class="footer_links_title">
+                    {{ locale[lang].footerCategories.contacts }}
+                  </p>
                   <ul v-if="footerData">
                     <li>
                       <a :href="'tel:' + footerData.contacts.phone_number[0]"
@@ -88,7 +96,10 @@
                   </ul>
                   <div class="footer_social d-flex align-items-center">
                     <a
-                      :href="'https://api.whatsapp.com/send?phone='+footerData.contacts.whats_app"
+                      :href="
+                        'https://api.whatsapp.com/send?phone=' +
+                        footerData.contacts.whats_app
+                      "
                       target="blank"
                       v-if="footerData.contacts.whats_app"
                     >
@@ -123,13 +134,13 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import {locale} from "~/lang/localeLang";
+import { locale } from "~/lang/localeLang";
 
 export default {
   data: () => ({
     lang: "ru",
     footerData: null,
-    locale: locale
+    locale: locale,
   }),
   methods: {
     ...mapActions(["GET_PRODUCTS"]),
@@ -144,12 +155,16 @@ export default {
     },
   },
   mounted() {
-    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
+    this.lang =
+      localStorage.getItem("lang") !== null
+        ? localStorage.getItem("lang")
+        : "ru";
     this.$axios
       .get(`get-footer?lang=${this.lang}`)
       .then((response) => (this.footerData = response.data));
   },
 };
 </script>
+
 
 <style></style>
