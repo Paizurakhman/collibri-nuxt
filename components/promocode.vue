@@ -22,10 +22,13 @@
     </form>
     <div v-if="(error || !success) && (!error || success)">
       <p class="promo-text">Для получения промокода свяжитесь с нами</p>
-      <a href="#">
+      <a
+        target="_blank"
+        :href="`https://api.whatsapp.com/send?phone=${footerData.contacts.whats_app}&text=Здравствуйте, прошу выслать промокод на скидку!`"
+      >
         <img src="~/assets/images/whatsapp-black.svg" alt="" />
       </a>
-      <a href="#">
+      <a :href="`tel:${footerData.contacts.phone_number[0]}`">
         <img src="~/assets/images/phone.svg" alt="" />
       </a>
     </div>
@@ -42,6 +45,11 @@ export default {
       codeData: null,
     };
   },
+  computed: {
+    footerData() {
+      return this.$store.state.footerData;
+    },
+  },
   methods: {
     checkPromocode() {
       this.error = false;
@@ -49,7 +57,10 @@ export default {
       this.$emit("code", null);
       if (this.promocode) {
         this.$axios
-          .$post(`ckech-code?code=${this.promocode}`)
+          .$post("ckech-code", {
+            code: this.promocode,
+            token: this.$cookies.get("userToken"),
+          })
           .then((response) => {
             this.success = true;
             this.$emit("code", response);

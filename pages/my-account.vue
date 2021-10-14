@@ -19,13 +19,14 @@
         <div class="col-xl-3 col-lg-3 col-md-12 order_2">
           <div class="action_content">
             <div class="tab_actions">
-              <nuxt-link
-                to="/my-account"
-              >
+              <nuxt-link to="/my-account">
                 {{ locale[lang].accountPage.data }}
               </nuxt-link>
               <nuxt-link to="/my-account/orders">
                 {{ locale[lang].accountPage.orders }}
+              </nuxt-link>
+              <nuxt-link to="/my-account/promocode">
+                {{ locale[lang].accountPage.promocode }}
               </nuxt-link>
             </div>
           </div>
@@ -39,26 +40,30 @@
 </template>
 
 <script>
-import {locale} from "~/lang/localeLang";
+import { locale } from "~/lang/localeLang";
 
 export default {
   name: "my-account",
   data: () => ({
     locale: locale,
-    lang: 'ru',
+    lang: "ru",
   }),
   head() {
     return {
-      title: this.lang === "en"? 'My Account | Collibri': 'Мой аккаунт | Collibri',
+      title:
+        this.lang === "en" ? "My Account | Collibri" : "Мой аккаунт | Collibri",
       // meta: [
       //   {
       //     content: this.meta_description
       //   }
       // ]
-    }
+    };
   },
   mounted() {
-    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
+    this.lang =
+      localStorage.getItem("lang") !== null
+        ? localStorage.getItem("lang")
+        : "ru";
   },
 };
 </script>

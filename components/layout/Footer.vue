@@ -139,11 +139,11 @@ import { locale } from "~/lang/localeLang";
 export default {
   data: () => ({
     lang: "ru",
-    footerData: null,
+
     locale: locale,
   }),
   methods: {
-    ...mapActions(["GET_PRODUCTS"]),
+    ...mapActions(["GET_PRODUCTS", "GET_FOOTER_DATA"]),
 
     categoryUrl(id) {
       this.navDropdown = false;
@@ -154,14 +154,18 @@ export default {
       return new Date().getFullYear();
     },
   },
+  computed: {
+    footerData() {
+      return this.$store.state.footerData;
+    },
+  },
   mounted() {
     this.lang =
       localStorage.getItem("lang") !== null
         ? localStorage.getItem("lang")
         : "ru";
-    this.$axios
-      .get(`get-footer?lang=${this.lang}`)
-      .then((response) => (this.footerData = response.data));
+
+    this.GET_FOOTER_DATA(this.lang);
   },
 };
 </script>

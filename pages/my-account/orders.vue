@@ -5,7 +5,7 @@
         <h3>{{ locale[lang].orders.title }}</h3>
       </div>
     </div>
-<!--    < v-if="" />-->
+    <!--    < v-if="" />-->
     <div v-if="orderData">
       <div class="order_item" v-for="order in orderData.orders" :key="order.id">
         <div class="first_block">
@@ -18,7 +18,7 @@
                 <div class="row">
                   <div class="col-xl-3 col-lg-4 col-5">
                     <div class="order_titles">
-                      <p >{{ locale[lang].orders.status }}</p>
+                      <p>{{ locale[lang].orders.status }}</p>
                     </div>
                   </div>
                   <div class="col-xl-9 col-lg-8 col-7">
@@ -58,7 +58,7 @@
               <div class="row">
                 <div class="col-xl-3 col-lg-4">
                   <div class="order_titles">
-                    <p >{{ locale[lang].orders.deliveryAddress }}</p>
+                    <p>{{ locale[lang].orders.deliveryAddress }}</p>
                   </div>
                 </div>
                 <div class="col-xl-9 col-lg-8">
@@ -66,11 +66,29 @@
                     <p v-if="order.address.street">
                       {{ order.address.street }}<span>/</span>
                     </p>
-                    <p v-if="order.address.house">{{ locale[lang].orders.house }}-{{ order.address.house }}<span>/</span></p>
-                    <p v-if="order.address.building">{{ locale[lang].orders.building }}-{{ order.address.building }}<span>/</span></p>
-                    <p v-if="order.address.entrance">{{ locale[lang].orders.entrance }}-{{ order.address.entrance }}<span>/</span></p>
-                    <p v-if="order.address.floor">{{ locale[lang].orders.floor }}-{{ order.address.floor }}<span>/</span></p>
-                    <p v-if="order.address.apartment">{{ locale[lang].orders.apartment }}-{{ order.address.apartment }}</p>
+                    <p v-if="order.address.house">
+                      {{ locale[lang].orders.house }}-{{ order.address.house
+                      }}<span>/</span>
+                    </p>
+                    <p v-if="order.address.building">
+                      {{ locale[lang].orders.building }}-{{
+                        order.address.building
+                      }}<span>/</span>
+                    </p>
+                    <p v-if="order.address.entrance">
+                      {{ locale[lang].orders.entrance }}-{{
+                        order.address.entrance
+                      }}<span>/</span>
+                    </p>
+                    <p v-if="order.address.floor">
+                      {{ locale[lang].orders.floor }}-{{ order.address.floor
+                      }}<span>/</span>
+                    </p>
+                    <p v-if="order.address.apartment">
+                      {{ locale[lang].orders.apartment }}-{{
+                        order.address.apartment
+                      }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -86,8 +104,7 @@
 </template>
 
 <script>
-
-import {locale} from "~/lang/localeLang";
+import { locale } from "~/lang/localeLang";
 
 export default {
   name: "orders",
@@ -95,7 +112,7 @@ export default {
     orderData: null,
     loader: false,
     locale: locale,
-    lang: 'ru'
+    lang: "ru",
   }),
 
   methods: {
@@ -111,7 +128,7 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang")
+    this.lang = localStorage.getItem("lang");
     this.loader = true;
     this.$axios
       .post(`user-orders`, {
@@ -121,6 +138,7 @@ export default {
         setTimeout(() => {
           this.loader = false;
           this.orderData = response.data;
+          console.log(this.orderData);
         }, 1000);
       })
       .catch((error) => {});

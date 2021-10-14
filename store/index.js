@@ -13,9 +13,13 @@ export const state = () => ({
     catalogDropdown: false,
     cartData: [],
     totalPrice: null,
+    footerData: null
 })
 
 export const mutations = {
+    SET_FOOTER_DATA(state, response) {
+        state.footerData = response
+    },
     SET_PRODUCTS(state, products) {
         state.catalogData = products;
     },
@@ -170,6 +174,17 @@ export const mutations = {
 }
 
 export const actions = {
+    GET_FOOTER_DATA({ commit }, lang) {
+        this.$axios
+            .get('get-footer', {
+                params: {
+                    lang: lang
+                }
+            })
+            .then((response) => {
+                commit('SET_FOOTER_DATA', response.data)
+            });
+    },
     GET_PRODUCTS({ commit, state }, id) {
         commit("SET_LOADER", true)
         this.$axios

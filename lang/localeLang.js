@@ -128,6 +128,7 @@ let locale = {
             myDetails: 'Мои данные',
             data: 'Данные',
             orders: 'Заказы',
+            promocode: "Промокод",
             city: 'Город: Алматы',
             newDataSaved: 'Новые данные сохранены'
         },
@@ -280,6 +281,7 @@ let locale = {
             data: 'Data',
             orders: 'Orders',
             city: 'Сity: Almaty',
+            promocode: "Promocode",
             newDataSaved: 'New data saved'
         },
         orders: {

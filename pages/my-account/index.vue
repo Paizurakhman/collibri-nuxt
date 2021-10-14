@@ -28,15 +28,16 @@
             <div class="col-xl-6 col-lg-6">
               <div class="font_600">
                 <input
+                  v-if="email"
                   type="email"
                   :placeholder="locale[lang].placeholders.email"
-                  v-model.trim="email"
+                  v-model="email"
                   autocomplete="stopdoingthat"
                   :class="{
-                            invalid:
-                              ($v.email.$dirty && !$v.email.required) ||
-                              ($v.email.$dirty && !$v.email.email),
-                          }"
+                    invalid:
+                      ($v.email.$dirty && !$v.email.required) ||
+                      ($v.email.$dirty && !$v.email.email),
+                  }"
                 />
               </div>
             </div>
@@ -52,75 +53,62 @@
             <div class="col-xl-10 change_password">
               <div class="row" v-if="changePassword">
                 <div class="col-xl-4">
-                  <label>{{
-                      locale[lang].placeholders.oldPassword
-                    }}</label>
+                  <label>{{ locale[lang].placeholders.oldPassword }}</label>
                   <input
                     type="password"
                     name="password"
-                    :placeholder="
-                              locale[lang].placeholders.oldPassword
-                            "
+                    :placeholder="locale[lang].placeholders.oldPassword"
                     v-model.trim="oldPassword"
                     :class="{
-                              invalid:
-                                $v.oldPassword.$dirty &&
-                                !$v.oldPassword.required,
-                            }"
+                      invalid:
+                        $v.oldPassword.$dirty && !$v.oldPassword.required,
+                    }"
                   />
                   <span
                     class="error"
-                    v-if="
-                              $v.oldPassword.$dirty && !$v.oldPassword.required
-                            "
-                  >{{ locale[lang].errors.passwordMust }}</span
+                    v-if="$v.oldPassword.$dirty && !$v.oldPassword.required"
+                    >{{ locale[lang].errors.passwordMust }}</span
                   >
                   <span class="error" v-if="!$v.oldPassword.minLength">
-                            {{ locale[lang].errors.passwordMust }}
-                            {{ $v.oldPassword.$model.length }}.
-                          </span>
+                    {{ locale[lang].errors.passwordMust }}
+                    {{ $v.oldPassword.$model.length }}.
+                  </span>
                 </div>
                 <div class="col-xl-4">
-                  <label>{{
-                      locale[lang].placeholders.newPassword
-                    }}</label>
+                  <label>{{ locale[lang].placeholders.newPassword }}</label>
                   <input
                     type="password"
                     v-model.trim="password"
                     :class="{
-                              invalid:
-                                $v.password.$dirty && !$v.password.required,
-                            }"
+                      invalid: $v.password.$dirty && !$v.password.required,
+                    }"
                   />
                   <span
                     class="error"
                     v-if="$v.password.$dirty && !$v.password.required"
-                  >{{ locale[lang].errors.newPassword }}</span
+                    >{{ locale[lang].errors.newPassword }}</span
                   >
                   <span class="error" v-if="!$v.password.minLength">
-                            {{ locale[lang].errors.passwordMust }}
-                            {{ $v.password.$model.length }}.
-                          </span>
+                    {{ locale[lang].errors.passwordMust }}
+                    {{ $v.password.$model.length }}.
+                  </span>
                 </div>
                 <div class="col-xl-4">
-                  <label>{{
-                      locale[lang].placeholders.passwordConfirm
-                    }}</label>
+                  <label>{{ locale[lang].placeholders.passwordConfirm }}</label>
                   <input
                     type="password"
                     v-model.trim="password_confirmation"
                     :class="{
-                              invalid:
-                                $v.password.$dirty && !$v.password.required,
-                            }"
+                      invalid: $v.password.$dirty && !$v.password.required,
+                    }"
                   />
                   <span
                     class="error"
                     v-if="
-                              $v.password.$dirty &&
-                              !$v.password_confirmation.sameAsPassword
-                            "
-                  >{{ locale[lang].errors.passwordMismatch }}</span
+                      $v.password.$dirty &&
+                      !$v.password_confirmation.sameAsPassword
+                    "
+                    >{{ locale[lang].errors.passwordMismatch }}</span
                   >
                 </div>
               </div>
@@ -144,9 +132,7 @@
                   </div>
                 </div>
                 <div class="col-xl-5 d-flex align-items-center">
-                  <p class="m-0" v-if="password_saved">
-                    Пароль сохранен
-                  </p>
+                  <p class="m-0" v-if="password_saved">Пароль сохранен</p>
                 </div>
               </div>
             </div>
@@ -257,11 +243,11 @@
 </template>
 
 <script>
-import {locale} from "~/lang/localeLang";
-import {email, minLength, required, sameAs} from "vuelidate/lib/validators";
+import { locale } from "~/lang/localeLang";
+import { email, minLength, required, sameAs } from "vuelidate/lib/validators";
 export default {
   name: "index",
-  data () {
+  data() {
     return {
       options: "Город",
       changePassword: false,
@@ -284,8 +270,8 @@ export default {
       password_saved: false,
       orderData: false,
       locale: locale,
-      lang: 'ru'
-    }
+      lang: "ru",
+    };
   },
   validations: {
     name: {
@@ -397,7 +383,10 @@ export default {
     },
   },
   mounted() {
-    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
+    this.lang =
+      localStorage.getItem("lang") !== null
+        ? localStorage.getItem("lang")
+        : "ru";
     const userToken = this.$cookies.get("userToken");
     const userId = this.$cookies.get("userId");
     this.$axios
@@ -422,9 +411,8 @@ export default {
         console.log(error);
       });
   },
-}
+};
 </script>
 
 <style scoped>
-
 </style>

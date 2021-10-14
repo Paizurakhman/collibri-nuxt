@@ -10,6 +10,24 @@
       <span class="close_btn" @click="mobileFilter = false"
         ><img src="@/assets/images/close.svg" alt=""
       /></span>
+      <div>
+        <div class="category_select">
+          <p class="bold_text">Категории</p>
+          <ul>
+            <li v-for="item in sub_categories" :key="item.id">
+              <label class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  :value="Number(item.id)"
+                  v-model="sub_category"
+                  @change="addFilter"
+                />
+                <span>{{ item.title }}</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div v-for="item in allFilter().slice(0, categoryCount)" :key="item.id">
         <div v-if="item.filter_items.length" class="category_select">
           <p class="bold_text">{{ item.title }}</p>

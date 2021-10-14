@@ -15,7 +15,7 @@
         :paginationData="products.products"
         @currentPage="currentPage"
       />
-      <div class="ordering_form">
+      <div class="ordering_form" v-if="products.products.last_page > 1">
         <div class="go_page">
           <form @submit.prevent="goPage">
             <div class="row justify-content-center">
