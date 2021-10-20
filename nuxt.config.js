@@ -49,7 +49,7 @@ export default {
         { src: '~/plugins/v-lazy-image', mode: 'client' },
         { src: '~/plugins/vue-cookies', mode: 'client' },
         { src: '~/plugins/vue-validate' },
-        { src: '~/plugins/vue-mask', mode: 'client' },
+        { src: '~/plugins/vue-mask' },
         { src: '~/plugins/pixel', mode: 'client' },
         '~/plugins/vue-directive'
     ],
@@ -86,7 +86,7 @@ export default {
     },
     recaptcha: {
         hideBadge: true,
-        siteKey: '6LeabLEbAAAAAGRVnJzaZ9J7KeDXKplE_DhSZ8Pn',
+        siteKey: '6Ld8mOEcAAAAANKZqWwXck5Eb9sIhkGziN2GDVF7',
         version: 2
     },
     // PWA module configuration: https://go.nuxtjs.dev/pwa
