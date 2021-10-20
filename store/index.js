@@ -160,6 +160,10 @@ export const mutations = {
         localStorage.setItem("cart_products", JSON.stringify(cartList));
     },
 
+    SET_CART_LENGTH(state, length) {
+      state.cartLength = length
+    },
+
     CART_TOTAL_PRICE(state, count) {
         for (let item of state.cartData) {
             Vue.set(item, 'count', 1)
@@ -201,6 +205,10 @@ export const actions = {
                     commit("SET_LOADER", false)
                 }, 100);
             });
+    },
+
+    CART_LENGTH_ACTION({commit}, length) {
+      commit('SET_CART_LENGTH', length)
     },
 
     GET_BRAND_PRODUCTS({ commit, state }, { id, page }) {

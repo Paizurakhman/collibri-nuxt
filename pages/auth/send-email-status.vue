@@ -11,9 +11,19 @@
 <script>
 export default {
   name: "SendEmailStatus",
-  head: {
-    title: localStorage.getItem("lang") === 'en'? 'Send email | collibri': 'письмо с потверждением | collibri'
+  data() {
+    return {
+      lang: "ru"
+    }
   },
+  head() {
+    return {
+      title: this.lang === 'en'? 'Send email | collibri': 'Письмо с потверждением | collibri'
+    }
+  },
+  mounted() {
+    this.lang = localStorage.getItem("lang") || "ru"
+  }
 }
 </script>
 

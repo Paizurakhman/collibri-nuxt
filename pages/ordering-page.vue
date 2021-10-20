@@ -1,16 +1,15 @@
 <template>
   <div class="ordering p_page">
     <div class="order_loader" v-if="loader">
-      <loader />
+      <loader/>
       <div class="_order_text">
         <h3>{{ locale[lang].processingRequest }}...</h3>
       </div>
     </div>
-
     <div class="container">
       <div class="back_link">
         <a href="#" class="silver_text" @click.prevent="$router.go(-1)"
-          ><img src="@/assets/images/BACK.svg" alt="" />{{
+        ><img src="@/assets/images/BACK.svg" alt=""/>{{
             locale[lang].buttons.backtoShopping
           }}</a
         >
@@ -30,11 +29,10 @@
                       type="text"
                       :placeholder="locale[lang].placeholders.name"
                       v-model.trim="name"
-                      :class="{ invalid: $v.name.$dirty && !$v.name.required }"
                     />
-                    <span v-if="$v.name.$error" class="error">{{
-                      locale[lang].placeholders.name
-                    }}</span>
+<!--                    <span v-if="$v.name.$error" class="error">{{-->
+<!--                        locale[lang].placeholders.name-->
+<!--                      }}</span>-->
                   </div>
                   <div class="col-xl-6">
                     <the-mask
@@ -43,48 +41,36 @@
                       type="text"
                       :masked="true"
                       :placeholder="locale[lang].placeholders.PhoneNumber"
-                      :class="{
-                        invalid:
-                          ($v.phone.$dirty && !$v.phone.required) ||
-                          ($v.phone.$dirty && !$v.phone.minLength),
-                      }"
                     />
-                    <span v-if="$v.phone.$error" class="error"
-                      >{{ locale[lang].errors.PhoneNumber }}
-                      {{ phone.length }}</span
-                    >
+<!--                    <span v-if="$v.phone.$error" class="error"-->
+<!--                    >{{ locale[lang].errors.PhoneNumber }}-->
+<!--                      {{ phone.length }}</span-->
+<!--                    >-->
                   </div>
                   <div class="col-xl-6">
                     <input
                       type="text"
                       :placeholder="locale[lang].placeholders.email"
                       v-model.trim="email"
-                      :class="{
-                        invalid:
-                          ($v.email.$dirty && !$v.email.required) ||
-                          ($v.email.$dirty && !$v.email.email),
-                      }"
                     />
-                    <span
-                      v-if="$v.email.$dirty && $v.email.$error"
-                      class="error"
-                      >{{ locale[lang].errors.email }}</span
-                    >
+<!--                    <span-->
+<!--                      v-if="$v.email.$dirty && $v.email.$error"-->
+<!--                      class="error"-->
+<!--                    >{{ locale[lang].errors.email }}</span-->
+<!--                    >-->
                   </div>
                   <div class="col-xl-6">
                     <input
                       type="text"
                       :placeholder="locale[lang].placeholders.instagram"
                       v-model.trim="instagram"
-                      :class="{
-                        invalid: $v.instagram.$dirty && !$v.instagram.required,
-                      }"
+
                     />
-                    <span
-                      v-if="$v.instagram.$dirty && $v.instagram.$error"
-                      class="error"
-                      >{{ locale[lang].errors.instagram }}</span
-                    >
+<!--                    <span-->
+<!--                      v-if="$v.instagram.$dirty && $v.instagram.$error"-->
+<!--                      class="error"-->
+<!--                    >{{ locale[lang].errors.instagram }}</span-->
+<!--                    >-->
                   </div>
                   <div class="col-xl-12 ordering_padding">
                     <div class="ordering_tabs">
@@ -101,9 +87,7 @@
                           type="text"
                           :placeholder="locale[lang].placeholders.street"
                           v-model.trim="street"
-                          :class="{
-                            invalid: $v.street.$dirty && !$v.street.required,
-                          }"
+
                         />
                       </div>
                       <div class="col-xl-4 m_input">
@@ -111,9 +95,6 @@
                           type="text"
                           :placeholder="locale[lang].placeholders.house"
                           v-model="house"
-                          :class="{
-                            invalid: $v.house.$dirty && !$v.house.required,
-                          }"
                         />
                       </div>
                       <div class="col-xl-3 m_input">
@@ -153,7 +134,6 @@
                     <div class="row">
                       <div class="col-xl-12">
                         <textarea
-                          name=""
                           id=""
                           cols="30"
                           rows="10"
@@ -189,9 +169,10 @@
                   :promo="promocode"
                 />
               </div>
-              <promocode @code="promocode = $event" />
+              <promocode @code="promocode = $event"/>
+
               <div class="delivery_info">
-                <p v-if="totalPrice < 45000" class="red_text">
+                <p v-if="totalPrice < deliveryPrice" class="red_text">
                   {{ locale[lang].deliveryText.delivery }}: 1000 KZT
                 </p>
                 <p v-else class="green_text">
@@ -199,7 +180,7 @@
                 </p>
               </div>
               <div class="total">
-                <p v-if="totalPrice < 45000">
+                <p v-if="totalPrice < deliveryPrice">
                   {{ locale[lang].orderingPage.total }}:
                   {{ totalPrice + 1000 }} KZT
                 </p>
@@ -229,8 +210,8 @@
 </template>
 
 <script>
-import { required, email, minLength } from "vuelidate/lib/validators";
-import { locale } from "~/lang/localeLang";
+// import {required, email, minLength} from "vuelidate/lib/validators";
+import {locale} from "~/lang/localeLang";
 
 export default {
   data: () => ({
@@ -251,6 +232,7 @@ export default {
     locale: locale,
     lang: "ru",
     promocode: null,
+    deliveryPrice: 0
   }),
 
   head() {
@@ -265,45 +247,35 @@ export default {
       //   }
       // ]
       script: [
-        { src: "https://widget.cloudpayments.ru/bundles/cloudpayments" },
+        {src: "https://widget.cloudpayments.ru/bundles/cloudpayments"},
       ],
     };
   },
 
-  validations: {
-    name: {
-      required,
-      minLength: minLength(3),
-    },
-
-    phone: {
-      required,
-      minLength: minLength(11),
-    },
-
-    email: {
-      email,
-      required,
-    },
-    instagram: {
-      required,
-    },
-
-    street: {
-      required,
-    },
-
-    house: {
-      required,
-    },
-  },
+  // validations: {
+  //   name: {
+  //     required,
+  //     minLength: minLength(3),
+  //   },
+  //   phone: {
+  //     required,
+  //     minLength: minLength(11),
+  //   },
+  //   email: {
+  //     email,
+  //     required,
+  //   },
+  //   instagram: { required },
+  //   street: { required },
+  //   house: { required },
+  // },
 
   methods: {
     deleteProduct(index, id) {
       this.cartData = this.cartData.filter((t) => t.id !== id);
 
       if (this.cartData.length === 0) {
-        this.cartData = null;
+        this.cartData = null
       }
 
       this.$store.commit("DELETE_PRODUCT", id);
@@ -330,11 +302,13 @@ export default {
       let code = this.promocode?.code;
       let products = JSON.parse(localStorage.getItem("productsData"));
 
-      this.$v.$touch();
+      // this.$v.$touch();
 
-      if (this.$v.$invalid) {
-        return false;
-      } else if (this.$cookies.isKey("userToken")) {
+      // if (this.$v.$invalid) {
+      //   return false;
+      // }
+      // else
+      if (this.$cookies.isKey("userToken")) {
         this.loader = true;
         this.$axios
           .post(`get-order`, {
@@ -345,7 +319,7 @@ export default {
           })
           .then((response) => {
             let tPrice =
-              this.totalPrice < 45000
+              this.totalPrice < this.deliveryPrice
                 ? this.totalPrice + 1000
                 : this.totalPrice;
             let order_id = response.data.order_id;
@@ -404,7 +378,7 @@ export default {
           })
           .then((response) => {
             let tPrice =
-              this.totalPrice < 45000
+              this.totalPrice < this.deliveryPrice
                 ? this.totalPrice + 1000
                 : this.totalPrice;
             let order_id = response.data.order_id;
@@ -465,14 +439,16 @@ export default {
             this.$set(item, "count", i.count);
             this.promocode?.code
               ? result.push(
-                  (item.old_price -
-                    (item.old_price * this.promocode?.sale) / 100) *
-                    i.count
-                )
-              : result.push(item.price * i.count);
+              Number((item.old_price -
+                (item.old_price * this.promocode?.sale) / 100) *
+                i.count)
+              )
+              : result.push(Number(item.price * i.count));
           }
         }
       });
+
+      console.log(result)
 
       result = result.reduce(function (sum, el) {
         return sum + el;
@@ -483,12 +459,10 @@ export default {
   },
 
   mounted() {
-    this.lang =
-      localStorage.getItem("lang") !== null
-        ? localStorage.getItem("lang")
-        : "ru";
+    this.lang = localStorage.getItem("lang") || "ru";
+
     let localstorageProductsId = JSON.parse(
-      localStorage.getItem("cart_products")
+      localStorage.getItem("cart_products") || []
     );
     let productsId = [];
 
@@ -496,15 +470,19 @@ export default {
       productsId.push(product.id);
     });
 
-    if (localstorageProductsId !== null && localstorageProductsId.length) {
+    if (localstorageProductsId.length) {
       this.$axios
-        .get(`card-product`, {
+        .get('card-product', {
           params: {
             product_id: productsId,
             lang: this.$store.state.lang,
           },
         })
         .then((response) => (this.cartData = response.data));
+
+      this.$axios.$get('delivery').then((response) => {
+        this.deliveryPrice = response
+      })
     }
 
     const userToken = this.$cookies.get("userToken");

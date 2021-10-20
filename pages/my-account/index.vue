@@ -28,7 +28,6 @@
             <div class="col-xl-6 col-lg-6">
               <div class="font_600">
                 <input
-                  v-if="email"
                   type="email"
                   :placeholder="locale[lang].placeholders.email"
                   v-model="email"
@@ -245,6 +244,7 @@
 <script>
 import { locale } from "~/lang/localeLang";
 import { email, minLength, required, sameAs } from "vuelidate/lib/validators";
+import { mapActions } from 'vuex'
 export default {
   name: "index",
   data() {
@@ -304,6 +304,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['CART_LENGTH_ACTION']),
     saveUserData() {
       this.$axios
         .post(`user-update`, {
@@ -376,7 +377,7 @@ export default {
           this.$cookies.remove("userId");
           this.$cookies.remove("token_time");
           localStorage.removeItem("cart_products");
-          this.$store.state.cartLength = 0;
+          this.CART_LENGTH_ACTION(0)
           this.$router.push("/");
         })
         .catch((error) => {});

@@ -128,7 +128,7 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang");
+    this.lang = localStorage.getItem("lang") || 'ru';
     this.loader = true;
     this.$axios
       .post(`user-orders`, {

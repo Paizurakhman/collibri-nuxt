@@ -1,5 +1,5 @@
 <template>
-  <div class="container p_page">
+  <div class="container p_page" v-if="searchProducts">
     <div class="title_small text-center" v-if="filteredProducts().products.data.length">
       <h1>Результаты поиска</h1>
     </div>
@@ -36,11 +36,6 @@ export default {
   head () {
     return {
       title: this.meta_title,
-      // meta: [
-      //   {
-      //     content: this.meta_description
-      //   }
-      // ]
     }
   },
 
@@ -59,7 +54,7 @@ export default {
   },
 
   mounted() {
-    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
+    this.lang = localStorage.getItem("lang") || "ru"
     let page = this.$route.query.page ? this.$route.query.page : 1;
     let sort = this.$route.query.sort ? this.$route.query.sort : "";
     let localFilterId = JSON.parse(localStorage.getItem("filter_id"));

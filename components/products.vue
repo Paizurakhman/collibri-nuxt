@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="catalog_products" v-if="products">
+    <div class="catalog_products" v-if="products.products">
       <div class="row">
         <div
           class="col-xl-4 col-md-6 col-lg-6"
@@ -46,13 +46,15 @@ import { locale } from "~/lang/localeLang";
 
 export default {
   props: ["products", "type"],
-  data: () => ({
-    showMorebtn: false,
-    more: null,
-    locale: locale,
-    lang: "ru",
-    page: "",
-  }),
+  data () {
+    return {
+      showMorebtn: false,
+      more: null,
+      locale: locale,
+      lang: "ru",
+      page: "",
+    }
+  },
 
   methods: {
     ...mapActions([

@@ -1,11 +1,11 @@
 <template>
   <div class="ordering_form mt-0">
-    <div class="row">
+    <div class="row" v-if="promocode">
       <div class="col-xl-6">
         <div class="copy-promocode">
           <input
             type="text"
-            v-model="promocode"
+            :value="promocode.code"
             readonly
             @focus="$event.target.select()"
             ref="myinput"
@@ -14,6 +14,7 @@
         </div>
       </div>
     </div>
+    <div v-else><h4>У вас нет промокод!</h4></div>
   </div>
 </template>
 

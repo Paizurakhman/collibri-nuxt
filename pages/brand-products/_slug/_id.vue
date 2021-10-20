@@ -47,15 +47,17 @@ import { mapGetters, mapActions } from "vuex";
 import {locale} from "~/lang/localeLang";
 
 export default {
-  data: () => ({
-    brandData: null,
-    filter_id: [],
-    productCategory: null,
-    locale: locale,
-    lang: "ru",
-    meta_title: null,
-    meta_description: null
-  }),
+  data () {
+    return {
+      brandData: null,
+      filter_id: [],
+      productCategory: null,
+      locale: locale,
+      lang: "ru",
+      meta_title: null,
+      meta_description: null
+    }
+  },
 
   head() {
     return {

@@ -48,7 +48,7 @@ export default {
         { src: '~/plugins/skeleton-loader', mode: 'client' },
         { src: '~/plugins/v-lazy-image', mode: 'client' },
         { src: '~/plugins/vue-cookies', mode: 'client' },
-        { src: '~/plugins/vue-validate', mode: 'client' },
+        { src: '~/plugins/vue-validate' },
         { src: '~/plugins/vue-mask', mode: 'client' },
         { src: '~/plugins/pixel', mode: 'client' },
         '~/plugins/vue-directive'

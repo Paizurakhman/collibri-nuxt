@@ -99,14 +99,14 @@ export default {
 
   mounted() {
     this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
-    let localstorageProductsId = JSON.parse(localStorage.getItem("cart_products"));
+    let localstorageProductsId = JSON.parse(localStorage.getItem("cart_products")) || [];
     let productsId = [];
 
     localstorageProductsId.forEach(product => {
       productsId.push(product.id)
     });
 
-    if (localstorageProductsId !== null && localstorageProductsId.length) {
+    if (localstorageProductsId.length) {
       this.$axios
         .get(`card-product`, {
           params: {

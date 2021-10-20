@@ -52,7 +52,7 @@ export default {
 
   head() {
     return {
-      title: localStorage.getItem("lang") === 'en'? 'Forgot password | collibri': 'Забыли пароль | collibri'
+      title: this.lang === 'en'? 'Forgot password | collibri': 'Забыли пароль | collibri'
     }
   },
 
@@ -89,7 +89,7 @@ export default {
     },
   },
   mounted() {
-    this.lang = localStorage.getItem("lang") !== null? localStorage.getItem("lang"): "ru"
+      this.lang = localStorage.getItem("lang") || "ru"
   }
 };
 </script>
