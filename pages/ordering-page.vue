@@ -35,9 +35,9 @@
 <!--                      }}</span>-->
                   </div>
                   <div class="col-xl-6">
-                    <the-mask
-                      :mask="['+7(###) ###-##-##']"
-                      v-model.trim="phone"
+                    <input
+                      v-mask="['+7(###) ###-##-##']"
+                      v-model="phone"
                       type="text"
                       :masked="true"
                       :placeholder="locale[lang].placeholders.PhoneNumber"
