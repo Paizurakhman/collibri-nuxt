@@ -3,6 +3,9 @@ export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
         title: 'collibri',
+        script: [
+          { src: "https://www.googletagmanager.com/gtag/js?id=AW-939826567" }
+        ],
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -23,7 +26,8 @@ export default {
             // {rel: "apple-touch-icon", sizes: "152x152", href: "apple-icon-152x152.png"},
             // {rel: "apple-touch-icon", sizes: "180x180", href: "apple-icon-180x180.png"},
             // {rel: "apple-touch-icon", href: "icon.png"},
-        ]
+        ],
+
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
@@ -68,7 +72,23 @@ export default {
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
         '@nuxtjs/recaptcha',
-        '@nuxtjs/sitemap'
+        '@nuxtjs/sitemap',
+        // ['@nuxtjs/google-gtag', {
+        //   id: 'AW-939826567',
+        //   config: {
+        //     anonymize_ip: true, // anonymize IP
+        //     send_page_view: true, // might be necessary to avoid duplicated page track on page reload
+        //     linker: {
+        //       domains: ['collibri.kz']
+        //     }
+        //   },
+        //   additionalAccounts: [{
+        //     id: 'AW-939826567', // required if you are adding additional accounts
+        //     config: {
+        //       send_page_view: true // optional configurations
+        //     }
+        //   }]
+        // }]
     ],
 
     sitemap: {
