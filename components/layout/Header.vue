@@ -3,12 +3,12 @@
     <div class="header">
       <div class="container">
         <div class="header_content row">
-          <div class="col-xl-3 col-5 col-md-3 col-lg-3">
+          <div class="col-xl-3 col-4 col-md-3 col-lg-3">
             <nuxt-link to="/" class="logo">
               <img src="@/assets/images/Logo.svg" alt="" />
             </nuxt-link>
           </div>
-          <div class="col-xl-5 m_none col-md-4 col-lg-5">
+          <div class="col-xl-4 m_none col-md-4 col-lg-4">
             <form action="" @submit.prevent>
               <img src="@/assets/images/search_icon.svg" alt="" />
               <input
@@ -47,7 +47,7 @@
               <p class="m-0">Совпадении нет !</p>
             </div>
           </div>
-          <div class="col-xl-4 col-5 col-md-5 col-lg-4">
+          <div class="col-xl-5 col-6 col-md-5 col-lg-5">
             <div class="header_content_right">
               <a href="tel:+7 707 777-77-77" v-if="headerData" class="m_none"
               ><i class="fas fa-phone-alt"></i
@@ -61,6 +61,15 @@
                   alt=""
                   @click="mobileSearch = true"
                 />
+                <a
+                  :href="
+                    'https://api.whatsapp.com/send?phone=' +
+                    headerData.contacts.whats_app
+                  "
+                  target="blank"
+                >
+                  <i class="fab fa-whatsapp"></i>
+                </a>
                 <nuxt-link to="/favorites" class="countFavorites"
                 ><i class="far fa-heart"></i>
                   <span v-if="favLength">{{ favLength }}</span>
