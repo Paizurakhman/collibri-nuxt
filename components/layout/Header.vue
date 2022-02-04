@@ -49,7 +49,7 @@
           </div>
           <div class="col-xl-5 col-6 col-md-5 col-lg-5">
             <div class="header_content_right">
-              <a href="tel:+7 707 777-77-77" v-if="headerData" class="m_none"
+              <a :href="`tel:${headerData.contacts.phone_number[0]}`" v-if="headerData" class="m_none"
               ><i class="fas fa-phone-alt"></i
               >{{ headerData.contacts.phone_number[0] }}</a
               >
@@ -64,7 +64,7 @@
                 <a
                   :href="
                     'https://api.whatsapp.com/send?phone=' +
-                    headerData.contacts.whats_app
+                    FOOTER_DATA.contacts.whats_app
                   "
                   target="blank"
                 >
@@ -128,7 +128,7 @@ export default {
     cartProductLength: null,
   }),
   computed: {
-    ...mapGetters(["GET_FAVOURITE_COUNT", "GET_CART_LENGTH"]),
+    ...mapGetters(["GET_FAVOURITE_COUNT", "GET_CART_LENGTH", "FOOTER_DATA"]),
 
     favLength() {
       if (

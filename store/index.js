@@ -444,4 +444,7 @@ export const getters = {
     totalPrice(state) {
         return state.totalPrice
     },
+  FOOTER_DATA(state) {
+      return state.footerData
+  }
 }
