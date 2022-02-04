@@ -265,13 +265,6 @@ export default {
   },
 
   mounted() {
-    if (process.browser) {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'AW-939826567');
-    }
     this.lang =
       localStorage.getItem("lang") !== null
         ? localStorage.getItem("lang")

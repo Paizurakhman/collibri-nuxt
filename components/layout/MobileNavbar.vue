@@ -118,7 +118,7 @@
         </ul>
       </div>
       <div class="mobile_nav_footer">
-        <a href="tel:+7 (777) 777-77-77 ">{{
+        <a :href=`tel:${headerData.contacts.phone_number[0]}`>{{
           headerData.contacts.phone_number[0]
         }}</a>
       </div>
